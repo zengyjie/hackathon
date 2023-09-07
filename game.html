@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>justinian</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .game-box {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .input-container {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        input[type="text"] {
+            background-color: white;
+            color: black;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .submit-button {
+            background-color: transparent;
+            border: none;
+            font-size: 24px;
+            color: white;
+            cursor: pointer;
+        }
+        .reset-button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-box">
+        {% if '\n' in game_text %}
+            {% for para in game_text.split('\n') %}
+                <p>{{ para|safe }}</p>
+            {% endfor %}
+        {% else %}
+            <p>{{ game_text|safe }}</p>
+        {% endif %}
+    </div>
+    <div class="input-container">
+        <form method="POST">
+            <input type="text" name="choice" placeholder=">">
+            <button type="submit" class="submit-button">&#62;</button>
+        </form>
+        <form method="GET" action="/reset">
+            <button type="submit" class="reset-button">
+                <img src="{{ url_for('static', filename='reset.png') }}" alt="reset" style="width: 16px; height: 16px;">
+            </button>
+        </form>
+    </div>
+</body>
+</html>
